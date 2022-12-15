@@ -1,0 +1,385 @@
+1 bitin alınması demek o network'ün ortadan ikiye bölünmesi demektir
+
+2811 router boş yuva çok olduğu açısından daha avantajlıdır ve yönetilebilir(IP adresleme gibi)
+
+NM-ESW-161 =>16 tane fazladan port
+
+(subnneting)alt ağlara bölerken (brocast) heryöne yayın mesajlarını sadece o ağın içerisinde bırakmış oluyoruz 
+her yayın mesajı kendi ağı içerisinde kalmış oluyor
+ağda virüs var ise sadece kendi ağ içerisindeki makineler zarar görecektir ve başka ağlara dağılmayacaktır
+ıp adresimiz çok fazla makinemiz az ise bu ağları bölmek mantıklıdır ancak (router) veya yönlendirici özellikleri olan modeme ihtiyaç vardır ve bu işlem güvenlik için önemlidir okullar vs için önemlidir
+
+
+ağlar şu şekilde bölünür 2 bit alınırsa ağ 2 ye bölünür yani 2 üzeri 2 üzeri 3 
+
+2 üzeri 3=> 8
+2 üzeri dört =>ağ 16 ya bölünmüş olur
+
+pop3 =>mail sunucusunda dökümanlar indirildikten sonra mail sunucusu içi boş hale gelir Port=>110			
+
+ımap4 =>mail sunucusu pop3 ten farklı olarak mail sunucusundaki veriyi korur. Port=>143
+
+SMTP=>25: istemci tarafından sunucuya posta iletmek için kullanılır.
+
+The NM-ESW-161 provides 16 switching ports.
+
+WPC300N =>wifi modülü
+
+uzaktaki iki routeri birbirine bağlamak için serial dce kablo kullanılır. 
+
+uzaktaki iki routerden birinin mutlaka saati tutması lazım . eğer tutulmaz ise bağlantı sağlanamaz ve bağlantı çalışmaz
+
+ip helper-address = yukardaki networkten ip adress talep etme komutu ilk dhcp istedeği başarısız olur ama ikincisinde durum ise başarılı olarak görülür
+
+ilkinde alamamasının sebebi dhcp sunucusunun ağı tanımaya çalışmasından kaynaklanıyor
+
+ilk kayıt için save ikinci kayıt için ise add denir
+
+dhcp den ip almak için ilgili ağın bölünecek ip adressleri dhcp ye yazılır
+
+Router yapılandırma  komutları
+
+en
+conf t
+host IST
+interface fashEternet 0/0
+ipp address 0.0.0.0 0.0.0.0
+no sh 
+ipp helper-address 0.0.0.0 => Dhcp sunucunun ip adresi yazılır
+
+APIPA nedir => bir dhcp sunucudan ip almaya çalışan aygıt bu isteğine cevap bulamaz ise kendisi bir ıp adress verir ve bu b sınıfı ip address olur 169.254.0.0 ile başlar. Aplardan dolayı APIPA'ya düşer 
+
+APIPA=>otomatik private ip address 
+
+clock rate 128000
+
+saat simgesi bulunan seri bağlantılarda mutlaka clock rate belirtilir aksine belirtilmez ise iki router birbirleriyle haberleşemez
+
+ip route => rata yazma komutu
+
+static rota yazarken ya kendi routeriniz adını yada karşı routerin ıp adresini kullanabiliriz
+
+statik rotada ip adresleri verilir sadece o ip aralığındaki makineler haberleşir
+
+default(varsayılan) rotada ise 0.0.0.0 0.0.0.0 olarak belirtilir herkes herkesle haberleşebilir
+
+rota=>C ile gösterilir
+elle tnımlanan ipler =>S ile gösterilir
+
+EIGRP=>D ile ifade edilir
+D EX => harici olarak EIGRP ile öğrenilmiş rotayı ifade eder 
+
+RIP=>224.0.0.9
+EİGRP=>224.0.0.10: Multicast yayın adresi
+
+
+HWIC-2T=>şehirlerArası bağlantı için gerekli olan bağlantı yuvaları 
+
+paralel iletişimde mesafe kısadır ama hızlıdır
+seri iletişimde mesafe daha geniş kapsamlıdır ama yavaştır
+
+tracert komutu =>bizim internet üzerinde erişmeye Çalıştığımız bir noktaya giderken geçmiş olduğumuz tüm düğümleri listeler yani router gibi cihazları listeler
+
+Netstat => Portların çalışıp çalışmadığı hakkında bize bilgi verir Aktif olan porlar neler onları listeler
+
+nslookup => dns sunucunun çalışıp çalışmadığı hakkında bize bilgi verir
+
+ledimiz yeşil ise 100mbs hızda çalışıyor turuncu ise 10mbs hızda çalışıtor demektir
+
+tümü aynı anda yanıyorsa ağda brodcast fırtınası var demektir.Tesbiti için inceleme gerekir bazan virus (trojen turuva vs)olabilir
+
+Apıpa düşen makinalar internete çıkılamaz ancak yerel olarak kendi içlerinde habarleşilebilir çünkü apıpa yerel için ayrılmış özel bir adrestir
+
+router aynı zamanda bir dhcp sunucu görevi görür ağlara ip adresleri dağıtır
+
+ip dhcp pool => o ağ için ip havuzu oluşturur
+dns-server => komutu ile dns atayabiliriz
+
+ip dhcp excluded-address =yazmış olduğum bu ip adresini görmezden gel(config sekmesinde yazılır )
+
+default-route=> o ağın ıp adresi
+
+network=>ağ adresi
+
+*UZAK BAĞLANTILARDA ROTA YAZMADAN IP ADRESİ ALINAMAZ*
+router rip
+dinamik rota yazarken diğer rotalarla uğraşmayız sadece yapılandırdığımız routerin networklerini yazarız ancak router sayısı fazla ise size sorun yaratabilir sorun bant genişliği ısp tarafından kullanılmaz
+
+MDF=>Ana dağıtım tesisi
+IDF=>ara dağıtım tesisi
+
+STP=>kablo birbirinin üstüne dolanmış ve aleminyum folyo ile sarılmıs kablo tipi
+
+ağ priz yuvasında topraklama olması lazım
+
+rj45 portu =>metal kılıflı olup topraklamalı olması lazım
+rolever =>consol kablosu
+
+brodcast ağ trafiğini yavaşlatacağı için maksimum 3 tane switch arka arkaya bağlanır
+
+mümküse bütcesi var ise router tavsiye edilir
+çünkü router brodcast mejası aşırıya kaçmaz  
+
+Router alırken (TÜMLEŞİK HİZMET YÖNLENDİRİCİLERİ)ISR olmasına dikkat edelim
+
+VERSİON 2=>sınıfsız adres belirleme
+
+		BAZI KOMUTLAR
+		discoveri 2 ders 3 30. dakika
+show ip router
+
+show ip protocols
+
+rip maksimum 15 tane routere izin verir
+
+do =>komutu routerin her bölgesinde çalışır
+
+debug ip rip 		
+
+VLSM (Veriable lenght subnet mask) =Değişken uzunluktaki subnet mask
+
+vlsm =>network adresini verimli kullanma biçimidir
+
+öncelik büyükten küçüğe olmalıdır aksi halde problemler oluşmaltadır
+
+IGRP = cisco cihazlar için üretilmiş bir protokoldür ama yerini EIGRP ye bırakmıştır
+
+IGRP=>VSLM desteği yoktu
+EIGRP =>VLSM desteği vardır kullanışlı fakat sadece cisco cihazlar için geçerli bir cisco protokolüdür
+
+router eıgrp 10 =hangi cihazlarla konuşacağını belirleyebiliriz 10 sayısı otonom sistem numarasıdır değişmez 
+
+D harfi bu rotanın EIGRP ile öğrenildiği anlamına gelmektedir	
+
+BGP=>farklı protokolleri birbirine bağlar
+
+redistribute static = EIGRP VE STATİC rotayı birbirlerine tanıtma işlemi bildiğin static rotayı dağıt anlamına geliyor
+
+BANTDIŞI YÖNETİM=>ROUTERİN ÜZERİNDE BULUNAN CONSOLE PORTUNA BANT DIŞI YÖNETİM DENİR
+
+BANTICIYONETİM=>SRİ ARAYÜZDEN VEYA ETHERNET ARAYÜZÜNDEN YAPILAN BAĞLANTIYA BANT İÇİ YÖNETİM DENİR
+
+224.0.0.5=>2240.0.6= OSPF IP PROTOKOLÜ
+OPEN SHORTEST PATH FIRST
+
+     router ospf 10
+     network 10.10.10.0 0.0.0.255 area 0	
+komut bu şekildedir eıgrpden farkı area 0 eklenmsidir
+
+Gateway of last resort is not set=>default rota yapılandırılmamıştır
+
+O Harfi Ospf ile öğrenilmiş demektir 
+
+OSPF sınıfı 110 dur
+
+no auto-summary =>Otomatik özetlemeyi devre dışı bırak.
+
+default-information originate =>OSPF ve RİP rotaları yönlendirmede kullanılır yoksa farklı rotaları öğrenemezler
+
+gateway of last resort is 2.2.2.1 to network =>varsayılan ağ geçidim 2.2.2.1 nolu ip adresidir
+
+R* =defaul olarak rip ile öğrenildiğini gösterir
+
+interface range  => birden fazla cihazı yapılandırabiliriz
+
+switchport mode access=>swichin hangi modda çalışacağını belirtiriz yani bu port erişim modunda çalışacak
+
+erişim modunda çalışırken sadece bir tane vlan bilgisi gidebilir 
+trunk modunda ise birden fazla vlan bilgisi gider 
+
+VTP (VLAN TRUNKİNG PROTOCOL - SANAL YEREL AĞ AKTARIM PROTOKOLÜ)=>Vtpyi yapılandırdığınız tün switchlerde vlan yapılandırmasını yapdığınız zaman bu vlan bilgisi otomatik olarak tüm switchlere dağıtılacaktır dolayısıyla tüm switchleri tek tek tanımlamaya gerek kalmıyacaktır
+
+switchport trunk native vlan 99 => etiketsiz vlan heryerden bu vlana ulaşabiliriz ve yönetebiliriz
+
+ortamda birden fazla vlan varsa fasethernet yapılandırmak doğru değidir 
+
+int fa0/0 
+no id add 
+no sh 
+
+ip adresi vermememizin sebebi her vlan bilgisinin routerde farklı bir arayüzden routere erişmesi lazım ancak bir tane arayüz olduğundan dolayı SUB kullanılır
+
+		SUB Kullanımı 
+
+int fa0/0.10
+encapsulation dot1Q 10
+ip add 0.0.0.0 0.0.0.0 gibi yazabiliriz
+no sh
+
+encapsulation dot1Q 99 native =>native ifadesi  özgündür anlamı katmaktadır
+
+native =>istediği cihazı kontrol edebilir yönetici gibidir
+
+
+en
+conf t
+vlan 10 
+name arge
+
+int ra fa0/1-4
+switchport mode access 
+switchport access vlan 10 =>bu porttan vlan 10 bilgisi gidecek
+
+swichport mode trunk
+
+switchport trunk native vlan 99 =>bu vlan bilgisini karşı tarafa gönder 
+
+sw(config) int vlan 99
+ip add 0.0.0.0 0.0.0.0 
+no sh
+
+ 		switch'e uzaktan erişim
+ 		
+line vty 0 4 
+password cisco =>gerekli
+enable password =>gerekli yoksa erişemeyiz
+
+     ***default getaway yazmaz isek erişemeyiz***
+     
+show spanning-tree=kimin root olduğunu söyler
+desg=>root'a gitmeyen    
+
+eğer switch'ler birbirine bağlıysa bağlanan switchlerde dögüleri engellemek için kapsam ağacı protokolü çalışır. 
+
+spanning-tree'nin amacı ağda gereksiz döngüleri engellemektir engellemeleri yapmak için belirli portları kapatır döngü oluşmasına izin vermez. Aynı zamanda yedeklilik sağlar.Bir kablo ile bağlantısı kesilirse öbür kablodan haberleşmeye devam eder.
+
+portFast => bekleme süresini azaltır 50 ise 15 saniyeye düşürebilir	
+
+show vlan brief =>oluşturduğumuz vlan'nın özetini görebiliriz
+
+*** TRUNCK MODU OLMADAN BİR VLAN ÖBÜR VLAN İLE HABERLEŞEMEZ***
+
+spanning-tree mode pvst =>kimin root olacağını belirler
+
+spanning-tree mode rapit-pvst=>switch'in bağlatı koparsa öbür switch'e öncelik verir 
+
+primary=>birincil
+deny=>yasakla
+permit=>izin ver 
+any =>engellenen ağ/host dışında herkese izin var demektir
+
+access-list'in uygulanması için bir arayüze ihtiyaç duyar ve yakın olan seçilir
+
+ACCESS LİST YAPILANDIRMAK İÇİN 
+access-list 10 deny 0.0.0.0 0.0.0.0 
+access-list 10 permit any
+int fa0/1
+ip access-group 10 out
+
+ACCESS LİST KALDIRMAK İÇİN
+
+interface fa0/1 ip access-group 10 out=>interfacede uygulamak için 
+
+no access-list 10 
+-------------------------------------------
+access-class 10 in => telnet erişimi için kullanılır
+
+INBOUND ACL=>gelen paketler gidecek arayüze gönderilmeden önce işleme alınır 
+
+OUTBOUND ACL=>gelen paketler arayüze gönderilir ve işleme alınır 
+
+STANDART ACL=>sadece SOURCE IP'ye göre işlem yapar. ACL NUMBER : 1-99 ve 1300-1999
+
+Desingnated router DR => yetkili router Ağda rota ile ilgiligüncellemelerden sorumlu routerdir...
+
+backup designated router BDR =>DR hata verirse yerini BDR'ye bırakır
+
+DROther =>Dr olmayan routerlerden oluşur
+
+Area Border Router=> arealar arasında kullanılır  Kullanılır
+
+Autonomous System Border Router=> OSPF Dışında farklı siteme bağlanmak için kullanılır
+
+area 0 authentication message-digest => md5 şifrelemesi ile  doğrulama yapılacağı ifade ediliyor
+
+ip ospf message-digest-key 10 şifre =>bu şekilde şifrelenir
+
+Her router için ayrı ayrı uygulanır 
+
+int fa0/0
+ip ospf priority => priority değeri bu komutla değişir
+
+ip access list extended =>
+deny ip host 0.0.0.0 host 0.0.1.0 =>0.0.0.0'ın 0.0.1.0 ip adresli makinesine erişimini engelle
+
+permit ip any any =>sonraki pc'lere izin ver :bu kuralı yazmaz isek tüm routerler deny'den etkilencektir
+
+***MUTLAKA BİR ARAYÜZE UYGULANMALIDIR***
+
+extended Access list =>basit olarak ip adresi engellemesi yapmaz.Belli portlara belli protokollere izin verir
+
+echo-reply=>izin vermez 
+tcp any any => tcp paketlerine izin verir
+
+1-99 standart access list
+100-199 extended access list
+
+V.35=> genellikle router bağlantısı için kullanılır
+
+WAN'da ikinci katman seçenekleri bulunmaktadır 
+1=>pysical addressing 
+2=>flow control : akış kontürolü
+3=>encapsulation type 
+   1=>LAPF for Frame Relay 
+   2=>HDLC
+   3=>ppp =>point to point
+
+Seri iletişim=>bir veri aynı hat üzerinde  parçalara bölünerek aktarılmaktadır 
+
+fractional connections =>bölümlemeli bağlantılar
+
+
+Time Division Multiplexing TDM =>veri parçacıkları belli aralıkta gönderilmakte
+
+Statistical Time Division Multuplexing STDM => aynı veriyi daha kısa sürede iletmektedir
+
+NAT işlemi =>ip nat inside source static 0.0.0.0 0.0.2.2'ye dönüştürür : tek başına bu işlem kullanılmaz 
+int se0/0/0 ip nat outside 
+int fa0/0 
+ip nat inside 
+içeride kalan kısıma inside dışarıda kalan kısım outside yazılması lazım 
+sabit bir ifadedir 
+dönüsecek ip adresi ve dönüştürülecek ip adresi yazılır
+
+static nat =>kullanıcının manuel yaptığı işlemdir
+
+dinamik nat=>havuz sistemi vardır
+
+ip nat pool CIKIS 10.10.1.3 10.10.1.6 netmask 255.255.255.0 => ip havuzu ve subnet mask ifadesi yazılır sonra access list ilave  edilir
+
+access list 10 permit 10.0.0.0 0.0.0.255 =>access list ile izin verilen cihazlar ilave edilerek  ve wide card mask yazılır 
+
+ip nat inside source 10 pool CIKIS=> giriş ip
+
+son olarak giriş ve çıkış yazılır
+
+*** CONFİGRASYON TEMİZLEMEK İÇİN BAŞINA NO İFADESİ EKLENİR  ***
+
+no ip nat inside 
+no access-list 10
+no ip nat inside source list 10
+no ip nat pool CIKIS
+
+pat yapabilmek için access liste ihtiyaç vardır
+
+pat işleminde bir tane çıkış ip'si vardır ortaktır
+
+ip nat inside source list 20 interface serial 0/0/0 overload
+
+Permanent Virtual Circuit PVC(Daima Sanal Devre )=>Kalıcı Devre
+Switched Virtual Circuit SVC(Anahtarlanmış Sanal Devre)=>geçici devre Çevirmeli bağlantıya benzetilebilir
+
+Frame konfigürasyonu
+int se0/0/1 #yapılandırılırken arayüzleri kontrol et
+encapsulation frame-relay
+frame-relay interface-dlci 200
+ip add 0.0.0.0 0.0.0.0 
+no sh 
+
+router ile bulut arasında kullanılan kablo DTE yani saatsiz kablo bulut üzerinde otomatik olarak saat bulunur
+
+birden fazla arayüz yapılandırmak için
+bu komut frame relaydan sonra çalışır 
+encapsulation frame-relay
+int s0/0/0.102 point-to-point
+
